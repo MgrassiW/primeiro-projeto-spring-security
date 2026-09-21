@@ -4,8 +4,11 @@ import io.github.MgrassiW.api_produtos.dto.ProdutoCreateRequest;
 import io.github.MgrassiW.api_produtos.dto.ProdutoResponse;
 import io.github.MgrassiW.api_produtos.dto.ProdutoUpdateRequest;
 import io.github.MgrassiW.api_produtos.entity.Produto;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class ProdutoMapper
 {
     /**

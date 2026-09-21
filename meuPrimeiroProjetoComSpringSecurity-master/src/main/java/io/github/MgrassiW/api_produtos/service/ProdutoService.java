@@ -7,10 +7,12 @@ import io.github.MgrassiW.api_produtos.entity.Produto;
 import io.github.MgrassiW.api_produtos.exception.ProdutoNaoEncontradoException;
 import io.github.MgrassiW.api_produtos.mapper.ProdutoMapper;
 import io.github.MgrassiW.api_produtos.repository.ProdutoRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class ProdutoService
 {
     private final ProdutoRepository repository;

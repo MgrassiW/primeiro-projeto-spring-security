@@ -1,23 +1,42 @@
 package io.github.MgrassiW.api_produtos.config;
 
 import io.github.MgrassiW.api_produtos.entity.Produto;
+import io.github.MgrassiW.api_produtos.entity.ROLE;
+import io.github.MgrassiW.api_produtos.entity.Usuario;
 import io.github.MgrassiW.api_produtos.repository.ProdutoRepository;
+import io.github.MgrassiW.api_produtos.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+
+@RequiredArgsConstructor
 @Configuration
 public class CargaDadosInicial implements CommandLineRunner {
+
     private final ProdutoRepository repository;
-    public CargaDadosInicial(ProdutoRepository repository) {
-        this.repository = repository;    }
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Override
     public void run(String... args) throws Exception {
         //popula apenas se o banco de dados estiver vazio
         if(repository.count() == 0){
+            Usuario admin = Usuario.builder()
+                    .login("admin")
+                    .senha(passwordEncoder.encode("123"))
+                    .role(ROLE.admin)
+                    .build();
+
+            Usuario user = Usuario.builder()
+                    .login("user")
+                    .senha(passwordEncoder.encode("123"))
+                    .role(ROLE.user)
+                    .build();
             List<Produto> produtosIniciais = List.of(
                     Produto.builder()
                             .nome("Notebook Dell Inspiron")
@@ -46,6 +65,8 @@ public class CargaDadosInicial implements CommandLineRunner {
                             .build()
             );
             repository.saveAll(produtosIniciais);
+            userRepository.save(admin);
+            userRepository.save(user);
         }
     }
 }
