@@ -149,5 +149,12 @@ public class ProdutoController {
         return ResponseEntity.ok(service.atualizar(id, request));
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+
+        service.remover(id);
+    }
+
+
 
 }
