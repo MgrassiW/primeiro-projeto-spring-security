@@ -39,10 +39,12 @@ public class ProdutoMapper
                 .map(this::toResponse)
                 .toList();
     }
-    public void updateEntity(ProdutoUpdateRequest request, Produto produto) {
+    public Produto updateEntity(ProdutoUpdateRequest request, Produto produto) {
         produto.setNome(request.nome());
         produto.setPreco(request.preco());
         produto.setAtivo(request.ativo());
+
+        return produto;
     }
 
 }

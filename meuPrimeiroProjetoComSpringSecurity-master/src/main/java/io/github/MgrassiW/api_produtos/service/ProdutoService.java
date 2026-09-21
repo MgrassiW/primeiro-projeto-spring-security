@@ -72,15 +72,15 @@ public class ProdutoService
                 .toList();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ProdutoResponse atualizar(Long id, ProdutoUpdateRequest request)
     {
         Produto produto = repository.findById(id)
                 .orElseThrow(() -> new
                         ProdutoNaoEncontradoException("Produto não encontrado com o ID:" + id));
 
-        mapper.updateEntity(request, produto);
-        Produto atualizado = repository.save(produto);
+        Produto produtoAtt = mapper.updateEntity(request, produto);
+        Produto atualizado = repository.save(produtoAtt);
 
         return mapper.toResponse(atualizado);
     }
